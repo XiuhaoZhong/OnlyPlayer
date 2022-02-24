@@ -10,7 +10,14 @@
 
 #include <stdio.h>
 
+#include <thread>
+
 #include "CSJRingBuffer.h"
+
+typedef enum {
+    CSJDecoderType_NONE = -1,
+    CSJDecoderType_FFMpeg
+} CSJDecoderType;
 
 class CSJVideoDecoderBase;
 class CSJAudioFrame;
@@ -32,11 +39,17 @@ public:
     
     std::unique_ptr<CSJAudioFrame> getNextAudioData();
     std::unique_ptr<CSJVideoFrame> getNextVideoData();
+    
+protected:
+    CSJVideoDecoderBase* createDecoderByType(CSJDecoderType type);
+    
 private:
     CSJVideoDecoderBase *decoder;
     
-    CSJRingBuffer<std::unique_ptr<CSJAudioFrame>> *m_pAudioRingBuffer;
-    CSJRingBuffer<std::unique_ptr<CSJVideoFrame>> *m_pVideoRingBuffer;
+    CSJRingBuffer<CSJAudioFrame> *m_pAudioRingBuffer;
+    CSJRingBuffer<CSJVideoFrame> *m_pVideoRingBuffer;
+    
+    std::thread decodeThread;
 };
 
 #endif /* CSJMeidaSyncer_hpp */

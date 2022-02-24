@@ -40,7 +40,7 @@ using std::thread;
 //struct AVFrame;
 //struct SwrContext;
 
-class CSJFFmpegVideoDecoder : CSJVideoDecoderBase {
+class CSJFFmpegVideoDecoder : public CSJVideoDecoderBase {
 public:
     CSJFFmpegVideoDecoder();
     ~CSJFFmpegVideoDecoder();

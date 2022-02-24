@@ -10,6 +10,8 @@
 #include "CSJAudioFrame.h"
 #include "CSJVideoFrame.h"
 
+#include "CSJFFmpegVideoDecoder.hpp"
+
 CSJMediaSynchronizer::CSJMediaSynchronizer() {
     decoder = nullptr;
 }
@@ -72,4 +74,18 @@ std::unique_ptr<CSJVideoFrame> CSJMediaSynchronizer::getNextVideoData() {
     }
     
     return m_pVideoRingBuffer->pop();
+}
+
+CSJVideoDecoderBase* CSJMediaSynchronizer::createDecoderByType(CSJDecoderType type) {
+    CSJVideoDecoderBase *decoder = nullptr;
+    
+    switch (type) {
+        case CSJDecoderType_FFMpeg:
+            decoder = new CSJFFmpegVideoDecoder();
+            break;
+        default:
+            decoder = nullptr;
+    }
+    
+    return decoder;
 }

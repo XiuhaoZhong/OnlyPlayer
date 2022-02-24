@@ -15,7 +15,6 @@
 		942B948126BBF68F00E7C30E /* libavformat.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942B947B26BBF68F00E7C30E /* libavformat.a */; };
 		942B948226BBF68F00E7C30E /* libswresample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942B947C26BBF68F00E7C30E /* libswresample.a */; };
 		942B948326BBF68F00E7C30E /* libswscale.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 942B947D26BBF68F00E7C30E /* libswscale.a */; };
-		9446E22F27492B1400F0BC17 /* CSJRingBuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9446E22D27492B1400F0BC17 /* CSJRingBuffer.cpp */; };
 		944963992732D2D4007F8815 /* CSJVideoFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 944963972732D2D4007F8815 /* CSJVideoFrame.cpp */; };
 		9449639C2732D304007F8815 /* CSJAudioFrame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9449639A2732D304007F8815 /* CSJAudioFrame.cpp */; };
 		944963A02732D3E9007F8815 /* CSJVideoDecoderBase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9449639E2732D3E9007F8815 /* CSJVideoDecoderBase.cpp */; };
@@ -244,7 +243,6 @@
 		942B947B26BBF68F00E7C30E /* libavformat.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libavformat.a; sourceTree = "<group>"; };
 		942B947C26BBF68F00E7C30E /* libswresample.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswresample.a; sourceTree = "<group>"; };
 		942B947D26BBF68F00E7C30E /* libswscale.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libswscale.a; sourceTree = "<group>"; };
-		9446E22D27492B1400F0BC17 /* CSJRingBuffer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSJRingBuffer.cpp; sourceTree = "<group>"; };
 		9446E22E27492B1400F0BC17 /* CSJRingBuffer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSJRingBuffer.h; sourceTree = "<group>"; };
 		944963972732D2D4007F8815 /* CSJVideoFrame.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSJVideoFrame.cpp; sourceTree = "<group>"; };
 		944963982732D2D4007F8815 /* CSJVideoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSJVideoFrame.h; sourceTree = "<group>"; };
@@ -596,6 +594,7 @@
 		944963952732D24F007F8815 /* CSJPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				94E0112927C731F100C1F352 /* CSJPlayerTools */,
 				944963AB2732D544007F8815 /* CSJPlayerController */,
 				944963AA2732D52F007F8815 /* CSJMediaSync */,
 				944963A12732D445007F8815 /* CSJMediaDataRender */,
@@ -861,8 +860,6 @@
 			children = (
 				949A7EB526C9022500886065 /* CommonUtils.h */,
 				949A7EB626C9022500886065 /* CommonUtils.m */,
-				9446E22D27492B1400F0BC17 /* CSJRingBuffer.cpp */,
-				9446E22E27492B1400F0BC17 /* CSJRingBuffer.h */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -876,6 +873,14 @@
 				949A7EBB26C90F0E00886065 /* 131.aac */,
 			);
 			path = resource;
+			sourceTree = "<group>";
+		};
+		94E0112927C731F100C1F352 /* CSJPlayerTools */ = {
+			isa = PBXGroup;
+			children = (
+				9446E22E27492B1400F0BC17 /* CSJRingBuffer.h */,
+			);
+			path = CSJPlayerTools;
 			sourceTree = "<group>";
 		};
 		94FC9E9026E90A56005DC8D1 /* OnlyAUPlayer */ = {
@@ -1165,7 +1170,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9446E22F27492B1400F0BC17 /* CSJRingBuffer.cpp in Sources */,
 				9464224226BBD5500051814F /* ViewController.mm in Sources */,
 				94FC9E9626E90B58005DC8D1 /* AVAudioSession+RouteUtils.m in Sources */,
 				949A7EB726C9022500886065 /* CommonUtils.m in Sources */,
