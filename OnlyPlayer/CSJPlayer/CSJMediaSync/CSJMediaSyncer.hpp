@@ -28,6 +28,9 @@ public:
     CSJMediaSynchronizer();
     ~CSJMediaSynchronizer();
     
+    // initialize the decoder and file to open;
+    bool init(CSJDecoderType type, std::string *filePath);
+    
     // decoder operations;
     void startDecode();
     void pauseDecode();
@@ -44,12 +47,17 @@ protected:
     CSJVideoDecoderBase* createDecoderByType(CSJDecoderType type);
     
 private:
-    CSJVideoDecoderBase *decoder;
+    // decoder;
+    CSJVideoDecoderBase             *m_pDecoder;
     
-    CSJRingBuffer<CSJAudioFrame> *m_pAudioRingBuffer;
-    CSJRingBuffer<CSJVideoFrame> *m_pVideoRingBuffer;
+    // decode thread;
+    std::thread                     m_vDecodeThread;
     
-    std::thread decodeThread;
+    // audio and video raw data;
+    CSJRingBuffer<CSJAudioFrame>    *m_pAudioRingBuffer;
+    CSJRingBuffer<CSJVideoFrame>    *m_pVideoRingBuffer;
+    
+    
 };
 
 #endif /* CSJMeidaSyncer_hpp */
