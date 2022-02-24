@@ -13,11 +13,29 @@
 #include "CSJFFmpegVideoDecoder.hpp"
 
 CSJMediaSynchronizer::CSJMediaSynchronizer() {
-    decoder = nullptr;
+    m_pDecoder = nullptr;
 }
 
 CSJMediaSynchronizer::~CSJMediaSynchronizer() {
     
+}
+
+bool CSJMediaSynchronizer::init(CSJDecoderType type, std::string * filePath) {
+    bool init = false;
+    
+    if (!filePath || filePath->size() == 0) {
+        return false;
+    }
+    
+    m_pDecoder = createDecoderByType(type);
+    if (!m_pDecoder) {
+        // TODO: log decoder create failed;
+        return false;
+    }
+    
+    init = m_pDecoder->openFile(*filePath);
+    
+    return init;
 }
 
 void CSJMediaSynchronizer::startDecode() {
