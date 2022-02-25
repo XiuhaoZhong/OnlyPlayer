@@ -54,7 +54,7 @@ void CSJMediaSynchronizer::stopDecode() {
     
 }
 
-void CSJMediaSynchronizer::pushVideoRawData(std::unique_ptr<CSJAudioFrame> audioData) {
+void CSJMediaSynchronizer::fillAudioData(std::unique_ptr<CSJAudioFrame> audioData) {
     if (!m_pAudioRingBuffer) {
         return ;
     }
@@ -66,7 +66,7 @@ void CSJMediaSynchronizer::pushVideoRawData(std::unique_ptr<CSJAudioFrame> audio
     m_pAudioRingBuffer->push(std::move(audioData));
 }
 
-void CSJMediaSynchronizer::pushAudioRawData(std::unique_ptr<CSJVideoFrame> videoData) {
+void CSJMediaSynchronizer::fillVideoData(std::unique_ptr<CSJVideoFrame> videoData) {
     if (!m_pVideoRingBuffer) {
         return ;
     }

@@ -34,35 +34,34 @@ extern "C" {
 
 using std::thread;
 
-//struct AVFormatContext;
-//struct AVCodecContext;
-//struct AVPacket;
-//struct AVFrame;
-//struct SwrContext;
-
 class CSJFFmpegVideoDecoder : public CSJVideoDecoderBase {
 public:
     CSJFFmpegVideoDecoder();
     ~CSJFFmpegVideoDecoder();
     
-    int openFile(string url);
-    void closeFile();
-    bool isEOF();
+    int openFile(string url) override;
+    void closeFile() override;
+    bool isEOF() override;
     
-    virtual void decodeFrame(float duration);
+    virtual void decodeFrame(float duration) override;
     
-    virtual void start();
-    virtual void pause();
-    virtual void resume();
-    virtual void stop();
+    virtual void start() override;
+    virtual void pause() override;
+    virtual void resume() override;
+    virtual void stop() override;
     
-    virtual int getVideoTime();
+    virtual CSJDecoderStatus decodeStatus() override;
+    
+    virtual int getVideoTime() override;
     
 protected:
     void decodeStart();
     
     void decodeAudioPacket(AVPacket *audioPacket);
     void decodeVideoPacket(AVPacket *videoPacket);
+    
+    void fillRawAudioData(uint8_t *data, int width, int height, float timerInterval, int format);
+    void fillRawVideoData(uint8_t *data, int sampleRate, int channel, float timerInterval, int format);
     
     bool videoConvertIfNeeded(AVFrame *videoFrame);
     void createVideoConverter(AVFrame *videoFrame);
@@ -128,6 +127,8 @@ private:
     // 播放器状态;
     bool            m_vStop;                    // 是否停止;
     bool            m_vPause;                   // 是否暂停;
+    
+    CSJDecoderStatus m_vPlayerStatus;           // 播放器状态;
 };
 
 #endif /* CSJFFmpegVideoDecoder_hpp */

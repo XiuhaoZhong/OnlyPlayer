@@ -84,6 +84,7 @@
 		94D4202726BCD62E006FB91F /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D4202626BCD62D006FB91F /* VideoToolbox.framework */; };
 		94D4202926BCD636006FB91F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D4202826BCD636006FB91F /* AudioToolbox.framework */; };
 		94D4202B26BCD64D006FB91F /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 94D4202A26BCD64C006FB91F /* libxml2.tbd */; };
+		94E0112C27C7856D00C1F352 /* CSJDecoderDataDelegate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 94E0112A27C7856D00C1F352 /* CSJDecoderDataDelegate.cpp */; };
 		94E866AC27B655BD004D1393 /* dzd4-mp3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 94E866AB27B655BD004D1393 /* dzd4-mp3.mp3 */; };
 		94FC9E9326E90AC1005DC8D1 /* CSJAUPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FC9E9226E90AC1005DC8D1 /* CSJAUPlayer.m */; };
 		94FC9E9626E90B58005DC8D1 /* AVAudioSession+RouteUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 94FC9E9526E90B58005DC8D1 /* AVAudioSession+RouteUtils.m */; };
@@ -343,6 +344,8 @@
 		94D4202626BCD62D006FB91F /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
 		94D4202826BCD636006FB91F /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		94D4202A26BCD64C006FB91F /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		94E0112A27C7856D00C1F352 /* CSJDecoderDataDelegate.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSJDecoderDataDelegate.cpp; sourceTree = "<group>"; };
+		94E0112B27C7856D00C1F352 /* CSJDecoderDataDelegate.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CSJDecoderDataDelegate.hpp; sourceTree = "<group>"; };
 		94E866AB27B655BD004D1393 /* dzd4-mp3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "dzd4-mp3.mp3"; sourceTree = "<group>"; };
 		94FC9E9126E90AC1005DC8D1 /* CSJAUPlayer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSJAUPlayer.h; sourceTree = "<group>"; };
 		94FC9E9226E90AC1005DC8D1 /* CSJAUPlayer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSJAUPlayer.m; sourceTree = "<group>"; };
@@ -622,6 +625,8 @@
 				9449639F2732D3E9007F8815 /* CSJVideoDecoderBase.h */,
 				946F040B2733B6DC00D705AC /* CSJFFmpegVideoDecoder.cpp */,
 				946F040C2733B6DC00D705AC /* CSJFFmpegVideoDecoder.hpp */,
+				94E0112A27C7856D00C1F352 /* CSJDecoderDataDelegate.cpp */,
+				94E0112B27C7856D00C1F352 /* CSJDecoderDataDelegate.hpp */,
 			);
 			path = CSJVideoDecoder;
 			sourceTree = "<group>";
@@ -1199,6 +1204,7 @@
 				948BFE1F270CC3B2008B832A /* pngtrans.c in Sources */,
 				946F040D2733B6DC00D705AC /* CSJFFmpegVideoDecoder.cpp in Sources */,
 				9464224D26BBD5520051814F /* main.m in Sources */,
+				94E0112C27C7856D00C1F352 /* CSJDecoderDataDelegate.cpp in Sources */,
 				9464223F26BBD5500051814F /* SceneDelegate.m in Sources */,
 				945DD18027C641E00002A1B5 /* CSJMediaSyncer.cpp in Sources */,
 				948BFE42270D728C008B832A /* OnlyGLView.mm in Sources */,

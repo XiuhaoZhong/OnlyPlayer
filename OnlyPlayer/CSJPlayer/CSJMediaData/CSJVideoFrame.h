@@ -17,16 +17,19 @@
 class CSJVideoFrame {
 public:
     CSJVideoFrame();
+    CSJVideoFrame(uint8_t *data, int dataLen, int width, int height,float position, int format);
+    CSJVideoFrame(CSJVideoFrame&& videoFrame);
+    CSJVideoFrame& operator=(CSJVideoFrame&& videoFrame);
     ~CSJVideoFrame();
     
     void* getData();
     
 private:
-    uint8_t *data;      // 视频数据;
-    int     width;      // 视频宽;
-    int     height;     // 视频高;
-    float   position;   // 当前数据的时间戳;
-    int     foramt;     // 视频数据格式;
+    uint8_t *m_pData;      // 视频数据;
+    int     m_vWidth;      // 视频宽;
+    int     m_vHeight;     // 视频高;
+    float   m_vPosition;   // 当前数据的时间戳;
+    int     m_vForamt;     // 视频数据格式;
 };
 
 #endif /* CSJVideoFrame_hpp */

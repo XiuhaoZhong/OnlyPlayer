@@ -10,6 +10,16 @@
 
 #include <stdio.h>
 #include <string>
+#include <memory>
+
+#include "CSJDecoderDataDelegate.hpp"
+
+typedef enum {
+    CSJDecoderStatus_None = -1,
+    CSJDecoderStatus_Decoding,
+    CSJDecoderStatus_Puase,
+    CSJDecoderStatus_Stop
+} CSJDecoderStatus;
 
 using std::string;
 
@@ -35,6 +45,9 @@ public:
     virtual void resume() = 0;
     virtual void stop() = 0;
     
+    // 获取解码器当前状态;
+    virtual CSJDecoderStatus decodeStatus() = 0;
+    
     // 获取视频时间长度;
     virtual int getVideoTime() = 0;
     
@@ -42,6 +55,8 @@ protected:
     void *protoclParser;
     void *formatDemuxer;
     void *decoder;
+    
+    std::weak_ptr<CSJDecoderDataDelegate> m_pDataDelegate;
 };
 
 #endif /* CSJVideoDecoderBase_H */

@@ -9,10 +9,10 @@
 #define CSJMeidaSyncer_hpp
 
 #include <stdio.h>
-
 #include <thread>
 
 #include "CSJRingBuffer.h"
+#include "CSJDecoderDataDelegate.hpp"
 
 typedef enum {
     CSJDecoderType_NONE = -1,
@@ -23,7 +23,9 @@ class CSJVideoDecoderBase;
 class CSJAudioFrame;
 class CSJVideoFrame;
 
-class CSJMediaSynchronizer {
+
+
+class CSJMediaSynchronizer : public CSJDecoderDataDelegate {
 public:
     CSJMediaSynchronizer();
     ~CSJMediaSynchronizer();
@@ -37,11 +39,14 @@ public:
     void resumeDecode();
     void stopDecode();
     
-    void pushVideoRawData(std::unique_ptr<CSJAudioFrame> audioData);
-    void pushAudioRawData(std::unique_ptr<CSJVideoFrame> videoData);
-    
     std::unique_ptr<CSJAudioFrame> getNextAudioData();
     std::unique_ptr<CSJVideoFrame> getNextVideoData();
+    
+    // override from CSJDecoderDataDelegate;
+    // put the raw data after codec into the ring buffer;
+    
+    virtual void fillAudioData(std::unique_ptr<CSJAudioFrame> audioData) override;
+    virtual void fillVideoData(std::unique_ptr<CSJVideoFrame> videoData) override;
     
 protected:
     CSJVideoDecoderBase* createDecoderByType(CSJDecoderType type);
@@ -56,8 +61,6 @@ private:
     // audio and video raw data;
     CSJRingBuffer<CSJAudioFrame>    *m_pAudioRingBuffer;
     CSJRingBuffer<CSJVideoFrame>    *m_pVideoRingBuffer;
-    
-    
 };
 
 #endif /* CSJMeidaSyncer_hpp */
