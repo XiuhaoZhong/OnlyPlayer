@@ -66,6 +66,10 @@ int CSJFFmpegVideoDecoder::getVideoTime() {
     return 0;
 }
 
+CSJDecoderStatus CSJFFmpegVideoDecoder::decodeStatus() {
+    return m_vPlayerStatus;
+}
+
 int CSJFFmpegVideoDecoder::openFile(string url) {
     if (url.length() <= 0) {
         // TODO: log 当前文件路径有误;
@@ -248,7 +252,6 @@ void CSJFFmpegVideoDecoder::decodeAudioPacket(AVPacket *audioPacket) {
     }
         
     // TODO: 将解码得到的数据全部存储到音频数据的ringbuffer中;
-    
 }
 
 void CSJFFmpegVideoDecoder::decodeVideoPacket(AVPacket *videoPacket) {
@@ -302,11 +305,24 @@ void CSJFFmpegVideoDecoder::decodeVideoPacket(AVPacket *videoPacket) {
         int dstLineStride[1] = {m_vVideoWidth * 4};
         int scaleRes = sws_scale(m_pVideoConverter, m_pVideoFrame->data, m_pVideoFrame->linesize, 0, m_pVideoFrame->height, dstBuffer, dstLineStride);
         if (scaleRes < 0) {
-            // TODO: scale failed;
+            // TODO: scale faile
+            return ;
         }
+        
+        // video data convert successful, add to ring buffer;
+       
+        
     } else {
         // 不需要转换;
     }
+}
+
+void CSJFFmpegVideoDecoder::fillRawAudioData(uint8_t *data, int width, int height, float timerInterval, int format) {
+    
+}
+
+void CSJFFmpegVideoDecoder::fillRawVideoData(uint8_t *data, int sampleRate, int channel, float timerInterval, int format) {
+    
 }
 
 void CSJFFmpegVideoDecoder::createVideoConverter(AVFrame *videoFrame) {
