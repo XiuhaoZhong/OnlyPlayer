@@ -42,25 +42,28 @@ public:
     std::unique_ptr<CSJAudioFrame> getNextAudioData();
     std::unique_ptr<CSJVideoFrame> getNextVideoData();
     
+    // set data delegate for decoder;
+    void setDecoderDataDelegate(std::shared_ptr<CSJDecoderDataDelegate> dataDelegate);
+    
     // override from CSJDecoderDataDelegate;
     // put the raw data after codec into the ring buffer;
-    
     virtual void fillAudioData(std::unique_ptr<CSJAudioFrame> audioData) override;
     virtual void fillVideoData(std::unique_ptr<CSJVideoFrame> videoData) override;
     
 protected:
-    CSJVideoDecoderBase* createDecoderByType(CSJDecoderType type);
+    std::shared_ptr<CSJVideoDecoderBase> createDecoderByType(CSJDecoderType type);
     
 private:
     // decoder;
-    CSJVideoDecoderBase             *m_pDecoder;
+    std::shared_ptr<CSJVideoDecoderBase> m_pDecoder;
     
     // decode thread;
-    std::thread                     m_vDecodeThread;
+    std::thread                          m_vDecodeThread;
     
     // audio and video raw data;
-    CSJRingBuffer<CSJAudioFrame>    *m_pAudioRingBuffer;
-    CSJRingBuffer<CSJVideoFrame>    *m_pVideoRingBuffer;
+    CSJRingBuffer<CSJAudioFrame>         *m_pAudioRingBuffer;
+    CSJRingBuffer<CSJVideoFrame>         *m_pVideoRingBuffer;
+    std::mutex                           m_vDataMutex;
 };
 
 #endif /* CSJMeidaSyncer_hpp */

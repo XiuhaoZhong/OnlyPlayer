@@ -12,8 +12,6 @@
 #include <string>
 #include <memory>
 
-#include "CSJDecoderDataDelegate.hpp"
-
 typedef enum {
     CSJDecoderStatus_None = -1,
     CSJDecoderStatus_Decoding,
@@ -28,6 +26,8 @@ using std::string;
  *
  * 定义解码器接口，便于各种解码器扩展;
  */
+
+class CSJDecoderDataDelegate;
 class CSJVideoDecoderBase {
 public:
     CSJVideoDecoderBase();
@@ -50,6 +50,8 @@ public:
     
     // 获取视频时间长度;
     virtual int getVideoTime() = 0;
+    
+    void setDataDelegate(std::shared_ptr<CSJDecoderDataDelegate> delegate);
     
 protected:
     void *protoclParser;
