@@ -7,6 +7,8 @@
 
 #include "CSJVideoDecoderBase.h"
 
+#include "CSJDecoderDataDelegate.hpp"
+
 CSJVideoDecoderBase::CSJVideoDecoderBase() {
     
 }
@@ -25,4 +27,8 @@ void CSJVideoDecoderBase::closeFile() {
 
 bool CSJVideoDecoderBase::isEOF() {
     return true;
+}
+
+void CSJVideoDecoderBase::setDataDelegate(std::shared_ptr<CSJDecoderDataDelegate> delegate) {
+    m_pDataDelegate = delegate;
 }

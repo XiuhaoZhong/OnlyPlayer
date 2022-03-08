@@ -60,8 +60,8 @@ protected:
     void decodeAudioPacket(AVPacket *audioPacket);
     void decodeVideoPacket(AVPacket *videoPacket);
     
-    void fillRawAudioData(uint8_t *data, int width, int height, float timerInterval, int format);
-    void fillRawVideoData(uint8_t *data, int sampleRate, int channel, float timerInterval, int format);
+    void fillRawVideoData(uint8_t *data, int width, int height, float timerInterval, int format);
+    void fillRawAudioData(uint8_t *data, int nb_samples, int sampleRate, int channel, float timerInterval, int format);
     
     bool videoConvertIfNeeded(AVFrame *videoFrame);
     void createVideoConverter(AVFrame *videoFrame);
