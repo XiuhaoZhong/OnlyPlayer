@@ -14,10 +14,21 @@
 
 CSJMediaSynchronizer::CSJMediaSynchronizer() {
     m_pDecoder = nullptr;
+    
+    m_pAudioRingBuffer = new CSJRingBuffer<CSJAudioFrame>(20);
+    m_pVideoRingBuffer = new CSJRingBuffer<CSJVideoFrame>(20);
 }
 
 CSJMediaSynchronizer::~CSJMediaSynchronizer() {
+    if (m_pAudioRingBuffer) {
+        delete m_pAudioRingBuffer;
+        m_pAudioRingBuffer = nullptr;
+    }
     
+    if (m_pVideoRingBuffer) {
+        delete m_pVideoRingBuffer;
+        m_pVideoRingBuffer = nullptr;
+    }
 }
 
 bool CSJMediaSynchronizer::init(CSJDecoderType type, std::string * filePath) {
@@ -54,13 +65,13 @@ void CSJMediaSynchronizer::stopDecode() {
     
 }
 
+void CSJMediaSynchronizer::setDecoderDataDelegate(std::shared_ptr<CSJDecoderDataDelegate> dataDelegate) {
+    m_pDecoder->setDataDelegate(dataDelegate);
+}
+
 void CSJMediaSynchronizer::fillAudioData(std::unique_ptr<CSJAudioFrame> audioData) {
     if (!m_pAudioRingBuffer) {
         return ;
-    }
-    
-    if (!m_pAudioRingBuffer->isFull()) {
-        // TODO: audio ring buffer is full;
     }
     
     m_pAudioRingBuffer->push(std::move(audioData));
@@ -71,14 +82,11 @@ void CSJMediaSynchronizer::fillVideoData(std::unique_ptr<CSJVideoFrame> videoDat
         return ;
     }
     
-    if (!m_pVideoRingBuffer->isFull()) {
-        // TODO: audio ring buffer is full;
-    }
-    
     m_pVideoRingBuffer->push(std::move(videoData));
 }
 
 std::unique_ptr<CSJAudioFrame> CSJMediaSynchronizer::getNextAudioData() {
+    std::lock_guard<std::mutex> lock(m_vDataMutex);
     if (!m_pAudioRingBuffer || m_pAudioRingBuffer->isEmpty()) {
         return nullptr;
     }
@@ -94,16 +102,14 @@ std::unique_ptr<CSJVideoFrame> CSJMediaSynchronizer::getNextVideoData() {
     return m_pVideoRingBuffer->pop();
 }
 
-CSJVideoDecoderBase* CSJMediaSynchronizer::createDecoderByType(CSJDecoderType type) {
-    CSJVideoDecoderBase *decoder = nullptr;
-    
+std::shared_ptr<CSJVideoDecoderBase> CSJMediaSynchronizer::createDecoderByType(CSJDecoderType type) {
     switch (type) {
         case CSJDecoderType_FFMpeg:
-            decoder = new CSJFFmpegVideoDecoder();
+            return std::make_shared<CSJFFmpegVideoDecoder>();
             break;
         default:
-            decoder = nullptr;
+            return nullptr;
     }
     
-    return decoder;
+    return nullptr;
 }

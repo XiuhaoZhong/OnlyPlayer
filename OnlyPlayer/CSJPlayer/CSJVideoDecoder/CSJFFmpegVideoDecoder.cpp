@@ -9,6 +9,8 @@
 
 #include <iostream>
 
+#include "CSJDecoderDataDelegate.hpp"
+
 // 默认播放音频的通道数;
 static const int g_vPlayAudioChannels = 2;
 
@@ -245,13 +247,15 @@ void CSJFFmpegVideoDecoder::decodeAudioPacket(AVPacket *audioPacket) {
             // TODO: 音频转换出错;
             return ;
         }
+        
         audioData = m_vAudioConvertBuffer;
     } else {
         // 解码的数据是支持的格式
         audioData = m_pAudioFrame->data[0];
     }
-        
-    // TODO: 将解码得到的数据全部存储到音频数据的ringbuffer中;
+    
+    // 将解码得到的数据全部存储到音频数据的ringbuffer中;
+    fillRawAudioData((uint8_t *)audioData, m_pAudioFrame->nb_samples, m_pAudioFrame->sample_rate, m_pAudioFrame->channels, 0, m_vAudioFmt);
 }
 
 void CSJFFmpegVideoDecoder::decodeVideoPacket(AVPacket *videoPacket) {
@@ -310,19 +314,25 @@ void CSJFFmpegVideoDecoder::decodeVideoPacket(AVPacket *videoPacket) {
         }
         
         // video data convert successful, add to ring buffer;
-       
-        
+        fillRawVideoData((uint8_t *)m_pVideoConverterBuffer, m_vVideoWidth, m_vVideoHeight, 0, m_vVideoFmt);
     } else {
         // 不需要转换;
+        fillRawVideoData(m_pVideoFrame->data[0], m_vVideoWidth, m_vVideoHeight, 0, m_vVideoFmt);
     }
 }
 
-void CSJFFmpegVideoDecoder::fillRawAudioData(uint8_t *data, int width, int height, float timerInterval, int format) {
-    
+void CSJFFmpegVideoDecoder::fillRawVideoData(uint8_t *data, int width, int height, float timerInterval, int format) {
+    std::unique_ptr<CSJVideoFrame> videoFrame(new CSJVideoFrame(data, width, height, timerInterval, format));
+    if (m_pDataDelegate.lock()) {
+        m_pDataDelegate.lock()->fillVideoData(std::move(videoFrame));
+    }
 }
 
-void CSJFFmpegVideoDecoder::fillRawVideoData(uint8_t *data, int sampleRate, int channel, float timerInterval, int format) {
-    
+void CSJFFmpegVideoDecoder::fillRawAudioData(uint8_t *data, int nb_samples, int sampleRate, int channel, float timerInterval, int format) {
+    std::unique_ptr<CSJAudioFrame> audioFrame(new CSJAudioFrame(data, nb_samples, sampleRate, channel, timerInterval, format));
+    if (m_pDataDelegate.lock()) {
+        m_pDataDelegate.lock()->fillAudioData(std::move(audioFrame));
+    }
 }
 
 void CSJFFmpegVideoDecoder::createVideoConverter(AVFrame *videoFrame) {

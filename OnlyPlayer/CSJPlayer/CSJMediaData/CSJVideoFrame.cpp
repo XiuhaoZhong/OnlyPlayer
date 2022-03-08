@@ -19,13 +19,14 @@ CSJVideoFrame::CSJVideoFrame() {
     m_vForamt = -1;
 }
 
-CSJVideoFrame::CSJVideoFrame(uint8_t* data, int dataLen, int width, int height, float position, int format)
+CSJVideoFrame::CSJVideoFrame(uint8_t* data, int width, int height, float position, int format)
                             : m_vWidth(width),
                               m_vHeight(height),
                               m_vPosition(position),
                               m_vForamt(format) {
-    m_pData = new uint8_t[dataLen];
-    memcpy(m_pData, data, dataLen);
+    m_vDataLen = sizeof(uint8_t) * m_vWidth * m_vHeight * 4;
+    m_pData = new uint8_t[m_vDataLen];
+    memcpy(m_pData, data, m_vDataLen);
 }
 
 CSJVideoFrame::~CSJVideoFrame() {
@@ -59,6 +60,6 @@ CSJVideoFrame& CSJVideoFrame::operator=(CSJVideoFrame&& videoFrame) {
     return *this;
 }
 
-void* CSJVideoFrame::getData() {
+uint8_t* CSJVideoFrame::getData() {
     return m_pData;
 }
