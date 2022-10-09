@@ -14,13 +14,13 @@
 @implementation CSJAUPlayer {
     AUGraph     mPlayerGraph;
     AUNode      mPlayerNode;
+    AudioUnit   mPlayerUnit;
     AUNode      mSplitterNode;
     AudioUnit   mSplitterUnit;
     AUNode      mAccMixerNode;
     AudioUnit   mAccMixerUnit;
     AUNode      mVocalMixerNode;
     AudioUnit   mVocalMixerUnit;
-    AudioUnit   mPlayerUnit;
     AUNode      mPlayerIONode;
     AudioUnit   mPlayerIOUnit;
     NSURL       *mPlayPath;
@@ -138,7 +138,7 @@
     status = AUGraphAddNode(mPlayerGraph, &mixerDescription, &mAccMixerNode);
     CheckStatus(status, @"Couldn't add AccMixer node to AUGraph", YES);
     
-    // 3: 打开Graph，打开Graph之后才会实例化；每一个Node;
+    // 3: 打开Graph，打开Graph之后才会实例化每一个Node;
     status = AUGraphOpen(mPlayerGraph);
     CheckStatus(status, @"Couldn't open AUGraph", YES);
     
@@ -166,13 +166,13 @@
     AudioStreamBasicDescription stereoStreamFormat;
     UInt32 bytesPerSample = sizeof(Float32);
     bzero(&stereoStreamFormat, sizeof(stereoStreamFormat));
-    stereoStreamFormat.mFormatID = kAudioFormatLinearPCM;
+    stereoStreamFormat.mFormatID = kAudioFormatMPEG4AAC;
     stereoStreamFormat.mFormatFlags = kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;
     stereoStreamFormat.mBytesPerPacket = bytesPerSample;
     stereoStreamFormat.mFramesPerPacket = 1;
     stereoStreamFormat.mChannelsPerFrame = 2;   // 立体声;
     stereoStreamFormat.mBitsPerChannel = 8 * bytesPerSample;
-    stereoStreamFormat.mSampleRate = 48000.0;
+    stereoStreamFormat.mSampleRate = 44100;
     status = AudioUnitSetProperty(mPlayerIOUnit, kAudioUnitProperty_StreamFormat, kAudioUnitScope_Output, 1, &stereoStreamFormat, sizeof(stereoStreamFormat));
     CheckStatus(status, @"set remote IO output element stream format!", YES);
     

@@ -12,12 +12,7 @@
 #include <string>
 #include <memory>
 
-typedef enum {
-    CSJDecoderStatus_None = -1,
-    CSJDecoderStatus_Decoding,
-    CSJDecoderStatus_Puase,
-    CSJDecoderStatus_Stop
-} CSJDecoderStatus;
+#include "CSJPlayerCommonData.h"
 
 using std::string;
 

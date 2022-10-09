@@ -14,6 +14,8 @@ extern "C" {
     
 #include "libswscale/swscale.h"
 #include "libavformat/avformat.h"
+#include "libavfilter/avfilter.h"
+#include "libavcodec/avcodec.h"
 
 #ifdef __cplusplus
 };
@@ -23,7 +25,9 @@ extern "C" {
 #include "CSJDecoderController.hpp"
 #include "CommonUtils.h"
 #include "CSJFFmpegVideoDecoder.hpp"
+#include "OnlyAUPlayer/CSJAUPlayer.h"
 #include <thread>
+#include <iostream>
 
 #import "Masonry/Masonry.h"
 
@@ -49,16 +53,60 @@ extern "C" {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    //[self ffmpegInit];
+    [self ffmpegInit];
     
-    [self setupUI];
+    //[self setupUI];
+    
+    //[self startPlayWithAUPlayer];
 }
 
 - (void)ffmpegInit {
     const char *ffmpegConfig = avformat_configuration();
-    if (strlen(ffmpegConfig) > 0) {
-        NSLog(@"ffmpeg config: %s", ffmpegConfig);
+    std::cout << *ffmpegConfig << std::endl;
+    
+    char info[10000] = {0};
+    sprintf(info, "%s\n", avcodec_configuration());
+    NSString * info_us = [NSString stringWithFormat:@"%s", info];
+    std::cout << "configurations: " << std::endl;
+    NSLog(@"%@", info_us);
+    
+    char inf[40000] = {0};
+    
+    std::cout << "procotols: " << std::endl;
+    struct URLProtocol *pup = NULL;
+    struct URLProtocol **p_tmp = &pup;
+    avio_enum_protocols((void **)p_tmp, 0);
+    while ((*p_tmp) != NULL) {
+        sprintf(inf, "%s[In ][%10s]\n", inf, avio_enum_protocols((void **)p_tmp, 0));
     }
+    
+    pup = NULL;
+    avio_enum_protocols((void **)p_tmp, 1);
+    while ((*p_tmp) != NULL) {
+        sprintf(inf, "%s[Out][%10s]\n", inf, avio_enum_protocols((void **)p_tmp, 1));
+    }
+    
+    sprintf(inf, "%s%s\n", inf, "Formats: ");
+    
+    struct AVInputFormat *input_format_iter = NULL;
+    av_demuxer_iterate((void **)&input_format_iter);
+    
+    
+    struct AVOutputFormat *output_format_iter = NULL;
+    av_muxer_iterate((void **)&output_format_iter);
+    
+    input_format_iter = input_format_iter->next;
+    while (input_format_iter != NULL) {
+        sprintf(inf, "%s[InFormat: ]%10s\n", inf, input_format_iter->name);
+        input_format_iter = input_format_iter->next;
+    }
+    
+    while (output_format_iter != NULL) {
+        sprintf(inf, "%s[OutFormat: ]%10s\n", inf, output_format_iter->name);
+        output_format_iter = output_format_iter->next;
+    }
+    
+    NSLog(@"%s", inf);
 }
 
 - (void)setupUI {
@@ -170,6 +218,15 @@ extern "C" {
     videoDecoder->start();
     
     m_pVideoDecoder = videoDecoder;
+}
+
+- (void)startPlayWithAUPlayer {
+    CSJAUPlayer *auPlayer = [[CSJAUPlayer alloc] initWithFilePath:[CommonUtils bundlePath:@"131.aac"]];
+    if (!auPlayer) {
+        return ;
+    }
+    
+    [auPlayer play];
 }
 
 #pragma mark - getters;

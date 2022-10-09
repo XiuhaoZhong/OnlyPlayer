@@ -50,19 +50,27 @@ bool CSJMediaSynchronizer::init(CSJDecoderType type, std::string * filePath) {
 }
 
 void CSJMediaSynchronizer::startDecode() {
-    
+    if (m_pDecoder) {
+        m_pDecoder->start();
+    }
 }
 
 void CSJMediaSynchronizer::pauseDecode() {
-    
+    if (m_pDecoder) {
+        m_pDecoder->pause();
+    }
 }
 
 void CSJMediaSynchronizer::resumeDecode() {
-    
+    if (m_pDecoder) {
+        m_pDecoder->resume();
+    }
 }
 
 void CSJMediaSynchronizer::stopDecode() {
-    
+    if (m_pDecoder) {
+        m_pDecoder->stop();
+    }
 }
 
 void CSJMediaSynchronizer::setDecoderDataDelegate(std::shared_ptr<CSJDecoderDataDelegate> dataDelegate) {

@@ -30,6 +30,8 @@
 		9464225726BBD5520051814F /* OnlyPlayerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464225626BBD5520051814F /* OnlyPlayerTests.m */; };
 		9464226226BBD5520051814F /* OnlyPlayerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9464226126BBD5520051814F /* OnlyPlayerUITests.m */; };
 		946F040D2733B6DC00D705AC /* CSJFFmpegVideoDecoder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 946F040B2733B6DC00D705AC /* CSJFFmpegVideoDecoder.cpp */; };
+		9474703B27D87F7E00F370C7 /* CSJPlayerController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9474703927D87F7E00F370C7 /* CSJPlayerController.cpp */; };
+		9474703F27D8A2A300F370C7 /* CSJPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9474703D27D8A2A300F370C7 /* CSJPlayer.cpp */; };
 		948BFE16270CC3B2008B832A /* libpng-config.in in Resources */ = {isa = PBXBuildFile; fileRef = 948BFDEA270CC3B2008B832A /* libpng-config.in */; };
 		948BFE17270CC3B2008B832A /* pngrio.c in Sources */ = {isa = PBXBuildFile; fileRef = 948BFDEB270CC3B2008B832A /* pngrio.c */; };
 		948BFE18270CC3B2008B832A /* pngerror.c in Sources */ = {isa = PBXBuildFile; fileRef = 948BFDEC270CC3B2008B832A /* pngerror.c */; };
@@ -275,6 +277,11 @@
 		9464226326BBD5520051814F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		946F040B2733B6DC00D705AC /* CSJFFmpegVideoDecoder.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSJFFmpegVideoDecoder.cpp; sourceTree = "<group>"; };
 		946F040C2733B6DC00D705AC /* CSJFFmpegVideoDecoder.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CSJFFmpegVideoDecoder.hpp; sourceTree = "<group>"; };
+		9474703927D87F7E00F370C7 /* CSJPlayerController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSJPlayerController.cpp; sourceTree = "<group>"; };
+		9474703A27D87F7E00F370C7 /* CSJPlayerController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CSJPlayerController.hpp; sourceTree = "<group>"; };
+		9474703C27D8828800F370C7 /* CSJPlayerCommonData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSJPlayerCommonData.h; sourceTree = "<group>"; };
+		9474703D27D8A2A300F370C7 /* CSJPlayer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = CSJPlayer.cpp; sourceTree = "<group>"; };
+		9474703E27D8A2A300F370C7 /* CSJPlayer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = CSJPlayer.hpp; sourceTree = "<group>"; };
 		948BFDE9270CC3B2008B832A /* pnginfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = pnginfo.h; sourceTree = "<group>"; };
 		948BFDEA270CC3B2008B832A /* libpng-config.in */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "libpng-config.in"; sourceTree = "<group>"; };
 		948BFDEB270CC3B2008B832A /* pngrio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = pngrio.c; sourceTree = "<group>"; };
@@ -597,6 +604,8 @@
 		944963952732D24F007F8815 /* CSJPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				9474703D27D8A2A300F370C7 /* CSJPlayer.cpp */,
+				9474703E27D8A2A300F370C7 /* CSJPlayer.hpp */,
 				94E0112927C731F100C1F352 /* CSJPlayerTools */,
 				944963AB2732D544007F8815 /* CSJPlayerController */,
 				944963AA2732D52F007F8815 /* CSJMediaSync */,
@@ -651,6 +660,8 @@
 		944963AB2732D544007F8815 /* CSJPlayerController */ = {
 			isa = PBXGroup;
 			children = (
+				9474703927D87F7E00F370C7 /* CSJPlayerController.cpp */,
+				9474703A27D87F7E00F370C7 /* CSJPlayerController.hpp */,
 			);
 			path = CSJPlayerController;
 			sourceTree = "<group>";
@@ -884,6 +895,7 @@
 			isa = PBXGroup;
 			children = (
 				9446E22E27492B1400F0BC17 /* CSJRingBuffer.h */,
+				9474703C27D8828800F370C7 /* CSJPlayerCommonData.h */,
 			);
 			path = CSJPlayerTools;
 			sourceTree = "<group>";
@@ -1178,6 +1190,7 @@
 				9464224226BBD5500051814F /* ViewController.mm in Sources */,
 				94FC9E9626E90B58005DC8D1 /* AVAudioSession+RouteUtils.m in Sources */,
 				949A7EB726C9022500886065 /* CommonUtils.m in Sources */,
+				9474703B27D87F7E00F370C7 /* CSJPlayerController.cpp in Sources */,
 				948BFE32270CC3B3008B832A /* pngmem.c in Sources */,
 				944963992732D2D4007F8815 /* CSJVideoFrame.cpp in Sources */,
 				948BFE25270CC3B2008B832A /* pngwrite.c in Sources */,
@@ -1193,6 +1206,7 @@
 				948BFE38270CC3B3008B832A /* pngset.c in Sources */,
 				948BFE18270CC3B2008B832A /* pngerror.c in Sources */,
 				944963A02732D3E9007F8815 /* CSJVideoDecoderBase.cpp in Sources */,
+				9474703F27D8A2A300F370C7 /* CSJPlayer.cpp in Sources */,
 				948BFE33270CC3B3008B832A /* pngget.c in Sources */,
 				948BFE45270D7646008B832A /* CSJRGBAFrameCopier.mm in Sources */,
 				948BFE36270CC3B3008B832A /* pngrutil.c in Sources */,
